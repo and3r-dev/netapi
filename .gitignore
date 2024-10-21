@@ -1,0 +1,57 @@
+# Compiled object files
+*.o
+*.dll
+*.exe
+*.so
+*.dylib
+*.class
+
+# Logs
+*.log
+logs/
+*.log
+*.tlog
+*.vscode
+
+# Compiled source code
+bin/
+bin/Debug/net8.0/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio working folder
+.vs/
+.vscode/
+
+# Rider project files
+.idea/
+
+# ASP.NET Scaffolding
+.scaffolding
+
+# ASP.NET core environment settings
+appsettings*.json
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+project.lock.json
+
+# dotnet build directories
+bin/
+obj/
+
+# Entity Framework Migrations
+Migrations/
+
+# Other build output
+dist/
+.publish/
