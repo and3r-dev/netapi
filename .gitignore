@@ -15,6 +15,7 @@ logs/
 
 # Compiled source code
 bin/
+bin/Debug/net8.0/
 obj/
 
 # User-specific files
