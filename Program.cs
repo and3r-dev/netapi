@@ -13,14 +13,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         new MySqlServerVersion(new Version(8, 3, 0))
     ));
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
-    });
-
-
 builder.Services.AddControllers(); 
 
 var app = builder.Build();
