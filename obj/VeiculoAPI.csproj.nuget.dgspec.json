@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\wamp64\\www\\NET\\VeiculoAPI\\VeiculoAPI.csproj": {}
+    "C:\\wamp64\\www\\NET\\VeiculoAPI\\VeiculoAPI.csproj": {}
   },
   "projects": {
-    "c:\\wamp64\\www\\NET\\VeiculoAPI\\VeiculoAPI.csproj": {
+    "C:\\wamp64\\www\\NET\\VeiculoAPI\\VeiculoAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\wamp64\\www\\NET\\VeiculoAPI\\VeiculoAPI.csproj",
+        "projectUniqueName": "C:\\wamp64\\www\\NET\\VeiculoAPI\\VeiculoAPI.csproj",
         "projectName": "VeiculoAPI",
-        "projectPath": "c:\\wamp64\\www\\NET\\VeiculoAPI\\VeiculoAPI.csproj",
+        "projectPath": "C:\\wamp64\\www\\NET\\VeiculoAPI\\VeiculoAPI.csproj",
         "packagesPath": "C:\\Users\\samsung\\.nuget\\packages\\",
-        "outputPath": "c:\\wamp64\\www\\NET\\VeiculoAPI\\obj\\",
+        "outputPath": "C:\\wamp64\\www\\NET\\VeiculoAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\samsung\\AppData\\Roaming\\NuGet\\NuGet.Config",

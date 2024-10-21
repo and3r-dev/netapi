@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rr8IZ2T/L10=",
+  "dgSpecHash": "zi5PvqJvMiU=",
   "success": true,
-  "projectFilePath": "c:\\wamp64\\www\\NET\\VeiculoAPI\\VeiculoAPI.csproj",
+  "projectFilePath": "C:\\wamp64\\www\\NET\\VeiculoAPI\\VeiculoAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\samsung\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\samsung\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

@@ -143,3 +143,4 @@ C:\wamp64\www\NET\VeiculoAPI\obj\Debug\net8.0\refint\VeiculoAPI.dll
 C:\wamp64\www\NET\VeiculoAPI\obj\Debug\net8.0\VeiculoAPI.pdb
 C:\wamp64\www\NET\VeiculoAPI\obj\Debug\net8.0\VeiculoAPI.genruntimeconfig.cache
 C:\wamp64\www\NET\VeiculoAPI\obj\Debug\net8.0\ref\VeiculoAPI.dll
+C:\wamp64\www\NET\VeiculoAPI\obj\Debug\net8.0\VeiculoAPI.sourcelink.json

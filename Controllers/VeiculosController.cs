@@ -22,11 +22,24 @@ namespace VeiculoAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Veiculo>>> GetVeiculos([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
-            var veiculos = await _context.Veiculos
+            var totalVeiculos = await _context.Veiculos.CountAsync();
+
+             var veiculos = await _context.Veiculos
+                .Include(v => v.Carro)
+                .Include(v => v.Caminhao)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
-            return Ok(veiculos);
+
+            var response = new
+            {
+                actual_page = page,
+                total_pages = (int)Math.Ceiling(totalVeiculos / (double)pageSize),
+                total_veiculos = totalVeiculos,
+                data = veiculos
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
