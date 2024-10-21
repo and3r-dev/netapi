@@ -4,17 +4,6 @@ using VeiculoAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAllOrigins",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
-        });
-});
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -24,19 +13,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         new MySqlServerVersion(new Version(8, 3, 0))
     ));
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
-    });
-
-
 builder.Services.AddControllers(); 
 
 var app = builder.Build();
-
-app.UseCors("AllowAllOrigins");
 
 if (app.Environment.IsDevelopment())
 {

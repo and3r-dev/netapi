@@ -22,24 +22,11 @@ namespace VeiculoAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Veiculo>>> GetVeiculos([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
-            var totalVeiculos = await _context.Veiculos.CountAsync();
-
-             var veiculos = await _context.Veiculos
-                .Include(v => v.Carro)
-                .Include(v => v.Caminhao)
+            var veiculos = await _context.Veiculos
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
-
-            var response = new
-            {
-                actual_page = page,
-                total_pages = (int)Math.Ceiling(totalVeiculos / (double)pageSize),
-                total_veiculos = totalVeiculos,
-                data = veiculos
-            };
-
-            return Ok(response);
+            return Ok(veiculos);
         }
 
         [HttpGet("{id}")]
@@ -54,41 +41,10 @@ namespace VeiculoAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Veiculo>> PostVeiculo(VeiculoDTO veiculoDTO)
+        public async Task<ActionResult<Veiculo>> PostVeiculo(Veiculo veiculo)
         {
-             var veiculo = new Veiculo
-                {
-                    Placa = veiculoDTO.Placa,
-                    Ano = veiculoDTO.Ano,
-                    Modelo = veiculoDTO.Modelo,
-                    Cor = veiculoDTO.Cor
-                };
-
             _context.Veiculos.Add(veiculo);
             await _context.SaveChangesAsync();
-
-            if (veiculoDTO.TipoVeiculo == 1)
-            {
-                var carro = new Carro
-                {
-                    VeiculoId = veiculo.Id,
-                    CapacidadePassageiro = veiculoDTO.CapacidadePassageiro ?? 0
-                };
-
-                _context.Carros.Add(carro);
-            } else if (veiculoDTO.TipoVeiculo == 2)
-            {
-                var caminhao = new Caminhao
-                {
-                    VeiculoId = veiculo.Id,
-                    CapacidadeCarga = veiculoDTO.CapacidadeCarga ?? 0M
-                };
-
-                _context.Caminhoes.Add(caminhao);
-            }
-
-            await _context.SaveChangesAsync();
-
             return CreatedAtAction(nameof(GetVeiculo), new { id = veiculo.Id }, veiculo);
         }
 
