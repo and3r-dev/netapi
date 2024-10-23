@@ -93,14 +93,75 @@ namespace VeiculoAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVeiculo(int id, Veiculo veiculo)
+        public async Task<IActionResult> PutVeiculo(int id, VeiculoDTO veiculoDTO)
         {
-            if (id != veiculo.Id)
+            if (id != veiculoDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(veiculo).State = EntityState.Modified;
+            var veiculoExistente = await _context.Veiculos
+                                        .Include(v => v.Carro)
+                                        .Include(v => v.Caminhao)
+                                        .FirstOrDefaultAsync(v => v.Id == id);
+
+            if (veiculoExistente == null)
+            {
+                return NotFound();
+            }
+
+            if (veiculoDTO.TipoVeiculo == 1)
+            {
+                var carro = await _context.Carros
+                            .FirstOrDefaultAsync(c => c.VeiculoId == veiculoExistente.Id);
+
+                if (carro != null)
+                {
+                    carro.CapacidadePassageiro = veiculoDTO.CapacidadePassageiro ?? 0;
+                    _context.Carros.Update(carro);
+                }
+                else
+                {
+                    carro = new Carro
+                    {
+                        VeiculoId = veiculoExistente.Id,
+                        CapacidadePassageiro = veiculoDTO.CapacidadePassageiro ?? 0
+                    };
+                    _context.Carros.Add(carro);
+                }
+
+                if (veiculoExistente.Caminhao != null)
+                {
+                    _context.Caminhoes.Remove(veiculoExistente.Caminhao);
+                }
+            }
+            else if (veiculoDTO.TipoVeiculo == 2)
+            {
+                var caminhao = await _context.Caminhoes
+                            .FirstOrDefaultAsync(c => c.VeiculoId == veiculoExistente.Id);
+
+                if (caminhao != null)
+                {
+                    caminhao.CapacidadeCarga = veiculoDTO.CapacidadeCarga ?? 0;
+                    _context.Caminhoes.Update(caminhao);
+                }
+                else
+                {
+                    caminhao = new Caminhao
+                    {
+                        VeiculoId = veiculoExistente.Id,
+                        CapacidadeCarga = veiculoDTO.CapacidadeCarga ?? 0
+                    };
+                    _context.Caminhoes.Add(caminhao);
+                }
+
+                if (veiculoExistente.Carro != null)
+                {
+                    _context.Carros.Remove(veiculoExistente.Carro);
+                }
+            }
+
+            _context.Entry(veiculoExistente).CurrentValues.SetValues(veiculoDTO);
 
             try
             {
@@ -115,8 +176,16 @@ namespace VeiculoAPI.Controllers
                 throw;
             }
 
-            return NoContent();
+            return Ok(new 
+            {
+                veiculoExistente.Id,
+                veiculoExistente.Placa,
+                veiculoExistente.Ano,
+                veiculoExistente.Modelo,
+                veiculoExistente.Cor,
+            });
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVeiculo(int id)
