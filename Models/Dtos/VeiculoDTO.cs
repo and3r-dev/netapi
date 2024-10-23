@@ -1,5 +1,6 @@
 public class VeiculoDTO
 {
+    public int Id { get; set; } 
     public int TipoVeiculo { get; set; } 
     public string Placa { get; set; }
     public int Ano { get; set; }
