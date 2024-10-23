@@ -4,6 +4,17 @@ using VeiculoAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -17,6 +28,8 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+app.UseCors("AllowAllOrigins");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -24,7 +37,7 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection(); 
-
+app.UseAuthorization();
 app.MapControllers(); 
 
 var summaries = new[]
